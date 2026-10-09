@@ -44,7 +44,8 @@ export default async function handler(req, res) {
       return send(res,200,{state:rows[0].state,updatedAt:rows[0].updated_at,mode:"cloud"});
     }
     const expected = process.env.TEAM_ACCESS_CODE;
-    if (expected && req.headers["x-team-access-code"] !== expected) return send(res,401,{error:"A valid team access code is required to update the shared workspace."});
+    if (!expected) return send(res,503,{error:"Team writes are disabled until TEAM_ACCESS_CODE is configured in Vercel."});
+    if (req.headers["x-team-access-code"] !== expected) return send(res,401,{error:"A valid team access code is required to update the shared workspace."});
     const incoming = req.body && req.body.state;
     if (!incoming || !Array.isArray(incoming.tasks) || !Array.isArray(incoming.decisions) || !Array.isArray(incoming.phases)) {
       return send(res,400,{error:"Invalid workspace state."});
