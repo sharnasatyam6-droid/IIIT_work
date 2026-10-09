@@ -19,7 +19,7 @@ A responsive shared workspace for Satyam, Anvi, Yashi, and Riddima to track hack
 2. Add a Neon Postgres database to your Vercel project, or create a Neon database and copy its connection string.
 3. In Vercel → Project → Settings → Environment Variables, add:
    - `DATABASE_URL`: Neon Postgres connection string (required for shared, cross-device data)
-   - `TEAM_ACCESS_CODE`: optional private code required for writes. Choose a non-trivial value and share it only with the four team members.
+   - `TEAM_ACCESS_CODE`: required private code for writes. Choose a long random value and share it only with the four team members.
 4. Redeploy after adding variables.
 
 The API accepts `DATABASE_URL`, `POSTGRES_URL`, or `NEON_DATABASE_URL`. On first API request it creates the `iiit_work_workspace` table and inserts the starter tasks. No manual SQL migration is required.
